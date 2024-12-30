@@ -15,7 +15,8 @@
             align-items: center;
         }
         .header {
-            width: 600px; /* Nastav šířku obrázku */
+            width: 80%; /* Nastav šířku obrázku */
+            max-width: 600px; /* Maximální šířka obrázku */
             height: 300px;
             background-image: url('janov.jpg');
             background-size: cover;
@@ -24,7 +25,8 @@
             border: 5px solid black; /* Černý rámeček */
         }
         .calendar {
-            width: 80%;
+            width: 90%; /* Zmenšení kalendáře */
+            max-width: 800px; /* Maximální šířka kalendáře */
             margin-top: 20px;
         }
         .fc-event {
@@ -41,6 +43,9 @@
             font-weight: bold; /* Zvýraznění víkendů tučně */
         }
         @media (max-width: 600px) {
+            .header {
+                width: 100%; /* Zmenšení obrázku na mobilních zařízeních */
+            }
             .calendar {
                 width: 100%; /* Zmenšení kalendáře na mobilních zařízeních */
             }
