@@ -17,7 +17,7 @@
         .header {
             width: 300px;
             height: 300px;
-            background-image: url('janov.jpg');
+            background-image: url('Janov.jpg');
             background-size: cover;
             background-position: center;
             margin-top: 20px;
@@ -52,21 +52,26 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl1 = document.getElementById('calendar1');
             var calendarEl2 = document.getElementById('calendar2');
+            var today = new Date();
 
             var calendar1 = new FullCalendar.Calendar(calendarEl1, {
                 initialView: 'dayGridMonth',
-                initialDate: '2025-01-01',
+                initialDate: today,
                 events: [
                     { title: 'Obsazeno', start: '2025-01-03', allDay: true },
                     { title: 'Obsazeno', start: '2025-01-04', allDay: true },
                     { title: 'Obsazeno', start: '2025-01-05', allDay: true },
                     { title: 'Thajsko', start: '2025-02-22', end: '2025-03-14', allDay: true, className: 'thajsko' }
-                ]
+                ],
+                validRange: {
+                    start: new Date(today.getFullYear(), today.getMonth() - 2, 1),
+                    end: new Date(today.getFullYear() + 1, today.getMonth() + 1, 0)
+                }
             });
 
             var calendar2 = new FullCalendar.Calendar(calendarEl2, {
                 initialView: 'dayGridMonth',
-                initialDate: '2025-02-01'
+                initialDate: new Date(today.getFullYear(), today.getMonth() + 1, 1)
             });
 
             calendar1.render();
