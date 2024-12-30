@@ -24,6 +24,17 @@
             margin-top: 20px;
             border: 5px solid black; /* Černý rámeček */
         }
+        .menu {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .menu a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
         .calendar {
             width: 90%; /* Zmenšení kalendáře */
             max-width: 800px; /* Maximální šířka kalendáře */
@@ -61,10 +72,14 @@
 </head>
 <body>
     <div class="header"></div>
+    <div class="menu">
+        <a href="#home">Domů</a>
+        <a href="#rezervace">Rezervace</a>
+        <a href="#kontakt">Kontakt</a>
+    </div>
     <div id='calendar' class="calendar"></div>
 
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
-    <script>
         const budiciSvatky = [
             { datum: '2025-01-01', nazev: 'Nový rok' },
             { datum: '2025-04-21', nazev: 'Velikonoční pondělí' },
