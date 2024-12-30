@@ -31,6 +31,10 @@
         .calendar .fc {
             width: 48%;
         }
+        .fc-event {
+            background-color: red !important;
+            border: none !important;
+        }
     </style>
 </head>
 <body>
@@ -48,7 +52,12 @@
 
             var calendar1 = new FullCalendar.Calendar(calendarEl1, {
                 initialView: 'dayGridMonth',
-                initialDate: '2024-01-01'
+                initialDate: '2024-01-01',
+                events: [
+                    { title: 'Obsazeno', start: '2024-01-03', allDay: true },
+                    { title: 'Obsazeno', start: '2024-01-04', allDay: true },
+                    { title: 'Obsazeno', start: '2024-01-05', allDay: true }
+                ]
             });
 
             var calendar2 = new FullCalendar.Calendar(calendarEl2, {
