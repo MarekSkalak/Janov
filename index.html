@@ -17,7 +17,7 @@
         .header {
             width: 300px;
             height: 300px;
-            background-image: url('janov.jpg');
+            background-image: url('Janov.jpg');
             background-size: cover;
             background-position: center;
             margin-top: 20px;
@@ -25,11 +25,6 @@
         .calendar {
             width: 80%;
             margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .calendar .fc {
-            width: 48%;
         }
         .fc-event {
             background-color: red !important;
@@ -42,19 +37,15 @@
 </head>
 <body>
     <div class="header"></div>
-    <div class="calendar">
-        <div id='calendar1'></div>
-        <div id='calendar2'></div>
-    </div>
+    <div id='calendar' class="calendar"></div>
 
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl1 = document.getElementById('calendar1');
-            var calendarEl2 = document.getElementById('calendar2');
+            var calendarEl = document.getElementById('calendar');
             var today = new Date();
 
-            var calendar1 = new FullCalendar.Calendar(calendarEl1, {
+            var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 initialDate: today,
                 events: [
@@ -69,26 +60,7 @@
                 }
             });
 
-            var calendar2 = new FullCalendar.Calendar(calendarEl2, {
-                initialView: 'dayGridMonth',
-                initialDate: new Date(today.getFullYear(), today.getMonth() + 1, 1)
-            });
-
-            calendar1.render();
-            calendar2.render();
-
-            // Synchronizace kalendářů
-            calendar1.on('datesSet', function(dateInfo) {
-                var newDate = new Date(dateInfo.start);
-                newDate.setMonth(newDate.getMonth() + 1);
-                calendar2.gotoDate(newDate);
-            });
-
-            calendar2.on('datesSet', function(dateInfo) {
-                var newDate = new Date(dateInfo.start);
-                newDate.setMonth(newDate.getMonth() - 1);
-                calendar1.gotoDate(newDate);
-            });
+            calendar.render();
         });
     </script>
 </body>
