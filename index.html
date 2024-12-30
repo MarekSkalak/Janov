@@ -17,7 +17,7 @@
         .header {
             width: 300px;
             height: 300px;
-            background-image: url('janov.jpg');
+            background-image: url('Janov.jpg');
             background-size: cover;
             background-position: center;
             margin-top: 20px;
@@ -34,6 +34,9 @@
         .fc-event {
             background-color: red !important;
             border: none !important;
+        }
+        .fc-event.thajsko {
+            background-color: blue !important;
         }
     </style>
 </head>
@@ -52,21 +55,35 @@
 
             var calendar1 = new FullCalendar.Calendar(calendarEl1, {
                 initialView: 'dayGridMonth',
-                initialDate: '2024-01-01',
+                initialDate: '2025-01-01',
                 events: [
                     { title: 'Obsazeno', start: '2025-01-03', allDay: true },
                     { title: 'Obsazeno', start: '2025-01-04', allDay: true },
-                    { title: 'Obsazeno', start: '2025-01-05', allDay: true }
+                    { title: 'Obsazeno', start: '2025-01-05', allDay: true },
+                    { title: 'Thajsko', start: '2025-02-22', end: '2025-03-14', allDay: true, className: 'thajsko' }
                 ]
             });
 
             var calendar2 = new FullCalendar.Calendar(calendarEl2, {
                 initialView: 'dayGridMonth',
-                initialDate: '2024-02-01'
+                initialDate: '2025-02-01'
             });
 
             calendar1.render();
             calendar2.render();
+
+            // Synchronizace kalendářů
+            calendar1.on('datesSet', function(dateInfo) {
+                var newDate = new Date(dateInfo.start);
+                newDate.setMonth(newDate.getMonth() + 1);
+                calendar2.gotoDate(newDate);
+            });
+
+            calendar2.on('datesSet', function(dateInfo) {
+                var newDate = new Date(dateInfo.start);
+                newDate.setMonth(newDate.getMonth() - 1);
+                calendar1.gotoDate(newDate);
+            });
         });
     </script>
 </body>
