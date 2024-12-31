@@ -166,7 +166,7 @@
         </form>
     </div>
 
-   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
 <script>
     const budiciSvatky = [
         { datum: '2025-01-01', nazev: 'Nový rok' },
@@ -201,6 +201,11 @@
             validRange: {
                 start: new Date(today.getFullYear(), today.getMonth() - 2, 1),
                 end: new Date(today.getFullYear() + 1, today.getMonth() + 1, 0)
+            },
+            eventClick: function(info) {
+                if (confirm(`Opravdu chcete smazat událost "${info.event.title}"?`)) {
+                    info.event.remove();
+                }
             }
         });
 
