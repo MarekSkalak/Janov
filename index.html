@@ -187,6 +187,9 @@
     var calendarEl = document.getElementById('calendar');
     var today = new Date();
 
+    // Načtení událostí z localStorage
+    var storedEvents = JSON.parse(localStorage.getItem('events')) || [];
+
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         initialDate: today,
@@ -194,9 +197,10 @@
             { title: 'Obsazeno', start: '2025-01-03', allDay: true },
             { title: 'Obsazeno', start: '2025-01-04', allDay: true },
             { title: 'Obsazeno', start: '2025-01-05', allDay: true },
-            { title: 'Obsazeno', start: '2025-01-30', end: '2025-02-04', allDay: true }, // Konec nastaven na den po skutečném konci
-            { title: 'Thajsko', start: '2025-02-22', end: '2025-03-16', allDay: true, className: 'thajsko' }, // Konec nastaven na den po skutečném konci
-            ...budiciSvatky.map(svatek => ({ title: svatek.nazev, start: svatek.datum, allDay: true, className: 'budici-svatek' }))
+            { title: 'Obsazeno', start: '2025-01-30', end: '2025-02-04', allDay: true },
+            { title: 'Thajsko', start: '2025-02-22', end: '2025-03-16', allDay: true, className: 'thajsko' },
+            ...budiciSvatky.map(svatek => ({ title: svatek.nazev, start: svatek.datum, allDay: true, className: 'budici-svatek' })),
+            ...storedEvents // Přidání uložených událostí
         ],
         validRange: {
             start: new Date(today.getFullYear(), today.getMonth() - 2, 1),
@@ -205,6 +209,14 @@
         eventClick: function(info) {
             if (confirm(`Opravdu chcete smazat událost "${info.event.title}"?`)) {
                 info.event.remove();
+                // Aktualizace localStorage po smazání události
+                var updatedEvents = calendar.getEvents().map(event => ({
+                    title: event.title,
+                    start: event.startStr,
+                    end: event.endStr,
+                    allDay: event.allDay
+                }));
+                localStorage.setItem('events', JSON.stringify(updatedEvents));
             }
         }
     });
