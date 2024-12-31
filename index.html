@@ -113,6 +113,22 @@
     <div class="header"></div>
     <div id='calendar' class="calendar"></div>
 
+    <!-- Přidání formuláře pro nové události -->
+    <div class="form-container">
+        <form id="eventForm">
+            <label for="title">Název události:</label>
+            <input type="text" id="title" name="title" required>
+            
+            <label for="start">Začátek:</label>
+            <input type="date" id="start" name="start" required>
+            
+            <label for="end">Konec:</label>
+            <input type="date" id="end" name="end">
+            
+            <button type="submit">Přidat událost</button>
+        </form>
+    </div>
+
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
     <script>
         const budiciSvatky = [
@@ -152,7 +168,22 @@
             });
 
             calendar.render();
+
+            document.getElementById('eventForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                var title = document.getElementById('title').value;
+                var start = document.getElementById('start').value;
+                var end = document.getElementById('end').value || start;
+
+                calendar.addEvent({
+                    title: title,
+                    start: start,
+                    end: end,
+                    allDay: true
+                });
+
+                this.reset();
+            });
         });
     </script>
 </body>
-</html>
