@@ -187,8 +187,8 @@
     var calendarEl = document.getElementById('calendar');
     var today = new Date();
 
-    // Načtení událostí z localStorage
-    var storedEvents = JSON.parse(localStorage.getItem('events')) || [];
+    // Načtení událostí z LocalStorage
+    var storedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || [];
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -209,14 +209,15 @@
         eventClick: function(info) {
             if (confirm(`Opravdu chcete smazat událost "${info.event.title}"?`)) {
                 info.event.remove();
-                // Aktualizace localStorage po smazání události
+                // Aktualizace LocalStorage
                 var updatedEvents = calendar.getEvents().map(event => ({
                     title: event.title,
                     start: event.startStr,
                     end: event.endStr,
-                    allDay: event.allDay
+                    allDay: event.allDay,
+                    className: event.classNames
                 }));
-                localStorage.setItem('events', JSON.stringify(updatedEvents));
+                localStorage.setItem('calendarEvents', JSON.stringify(updatedEvents));
             }
         }
     });
@@ -227,18 +228,25 @@
         e.preventDefault();
         var title = document.getElementById('title').value;
         var start = document.getElementById('start').value;
-        var end = new Date(document.getElementById('end').value);
-        end.setDate(end.getDate() + 1); // Přidání jednoho dne ke koncovému datu
+        var end = document.getElementById('end').value;
 
-        calendar.addEvent({
+        var endDate = new Date(end);
+        endDate.setDate(endDate.getDate() + 1);
+
+        var newEvent = {
             title: title,
             start: start,
-            end: end.toISOString().split('T')[0], // Převod na formát YYYY-MM-DD
+            end: endDate.toISOString().split('T')[0],
             allDay: true
-        });
+        };
+
+        calendar.addEvent(newEvent);
+
+        // Uložení nové události do LocalStorage
+        storedEvents.push(newEvent);
+        localStorage.setItem('calendarEvents', JSON.stringify(storedEvents));
 
         this.reset();
     });
 });
-</script>
 </body>
