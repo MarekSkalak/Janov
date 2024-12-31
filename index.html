@@ -15,18 +15,18 @@
             align-items: center;
         }
         .header {
-            width: 80%; /* Nastav šířku obrázku */
-            max-width: 600px; /* Maximální šířka obrázku */
+            width: 80%;
+            max-width: 600px;
             height: 300px;
             background-image: url('janov.jpg');
             background-size: cover;
             background-position: center;
             margin-top: 20px;
-            border: 5px solid black; /* Černý rámeček */
+            border: 5px solid black;
         }
         .calendar {
-            width: 90%; /* Zmenšení kalendáře */
-            max-width: 800px; /* Maximální šířka kalendáře */
+            width: 90%;
+            max-width: 800px;
             margin-top: 20px;
         }
         .fc-event {
@@ -37,24 +37,24 @@
             background-color: blue !important;
         }
         .fc-event.budici-svatek {
-            background-color: green !important; /* Zelená barva pro státní svátky */
+            background-color: green !important;
         }
         .fc-day-sat, .fc-day-sun {
-            font-weight: bold; /* Zvýraznění víkendů tučně */
+            font-weight: bold;
         }
         @media (max-width: 600px) {
             .header {
-                width: 100%; /* Zmenšení obrázku na mobilních zařízeních */
+                width: 100%;
             }
             .calendar {
-                width: 100%; /* Zmenšení kalendáře na mobilních zařízeních */
-                max-width: 100%; /* Zajištění, že kalendář nepřesáhne šířku obrazovky */
+                width: 100%;
+                max-width: 100%;
             }
             .fc .fc-toolbar-title {
-                font-size: 1.2em; /* Zmenšení velikosti písma názvu měsíce */
+                font-size: 1.2em;
             }
             .fc .fc-daygrid-day-number {
-                font-size: 0.8em; /* Zmenšení velikosti písma čísel dnů */
+                font-size: 0.8em;
             }
         }
         nav {
@@ -99,6 +99,43 @@
         }
         nav ul li ul li a {
             padding: 12px 16px;
+        }
+
+        /* CSS pro formulář */
+        .form-container {
+            width: 90%;
+            max-width: 800px;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #575757;
         }
     </style>
 </head>
