@@ -166,61 +166,61 @@
         </form>
     </div>
 
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
-    <script>
-        const budiciSvatky = [
-            { datum: '2025-01-01', nazev: 'Nový rok' },
-            { datum: '2025-04-21', nazev: 'Velikonoční pondělí' },
-            { datum: '2025-05-01', nazev: 'Svátek práce' },
-            { datum: '2025-05-08', nazev: 'Den vítězství' },
-            { datum: '2025-07-05', nazev: 'Den slovanských věrozvěstů Cyrila a Metoděje' },
-            { datum: '2025-07-06', nazev: 'Den upálení mistra Jana Husa' },
-            { datum: '2025-09-28', nazev: 'Den české státnosti' },
-            { datum: '2025-10-28', nazev: 'Den vzniku samostatného československého státu' },
-            { datum: '2025-11-17', nazev: 'Den boje za svobodu a demokracii' },
-            { datum: '2025-12-24', nazev: 'Štědrý den' },
-            { datum: '2025-12-25', nazev: '1. svátek vánoční' },
-            { datum: '2025-12-26', nazev: '2. svátek vánoční' }
-        ];
+   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+<script>
+    const budiciSvatky = [
+        { datum: '2025-01-01', nazev: 'Nový rok' },
+        { datum: '2025-04-21', nazev: 'Velikonoční pondělí' },
+        { datum: '2025-05-01', nazev: 'Svátek práce' },
+        { datum: '2025-05-08', nazev: 'Den vítězství' },
+        { datum: '2025-07-05', nazev: 'Den slovanských věrozvěstů Cyrila a Metoděje' },
+        { datum: '2025-07-06', nazev: 'Den upálení mistra Jana Husa' },
+        { datum: '2025-09-28', nazev: 'Den české státnosti' },
+        { datum: '2025-10-28', nazev: 'Den vzniku samostatného československého státu' },
+        { datum: '2025-11-17', nazev: 'Den boje za svobodu a demokracii' },
+        { datum: '2025-12-24', nazev: 'Štědrý den' },
+        { datum: '2025-12-25', nazev: '1. svátek vánoční' },
+        { datum: '2025-12-26', nazev: '2. svátek vánoční' }
+    ];
 
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var today = new Date();
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var today = new Date();
 
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                initialDate: today,
-                events: [
-                    { title: 'Obsazeno', start: '2025-01-03', allDay: true },
-                    { title: 'Obsazeno', start: '2025-01-04', allDay: true },
-                    { title: 'Obsazeno', start: '2025-01-05', allDay: true },
-                    { title: 'Obsazeno', start: '2025-01-30', end: '2025-02-03', allDay: true },
-                    { title: 'Thajsko', start: '2025-02-22', end: '2025-03-15', allDay: true, className: 'thajsko' },
-                    ...budiciSvatky.map(svatek => ({ title: svatek.nazev, start: svatek.datum, allDay: true, className: 'budici-svatek' }))
-                ],
-                validRange: {
-                    start: new Date(today.getFullYear(), today.getMonth() - 2, 1),
-                    end: new Date(today.getFullYear() + 1, today.getMonth() + 1, 0)
-                }
-            });
-
-            calendar.render();
-
-            document.getElementById('eventForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                var title = document.getElementById('title').value;
-                var start = document.getElementById('start').value;
-                var end = document.getElementById('end').value || start;
-
-                calendar.addEvent({
-                    title: title,
-                    start: start,
-                    end: end,
-                    allDay: true
-                });
-
-                this.reset();
-            });
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            initialDate: today,
+            events: [
+                { title: 'Obsazeno', start: '2025-01-03', allDay: true },
+                { title: 'Obsazeno', start: '2025-01-04', allDay: true },
+                { title: 'Obsazeno', start: '2025-01-05', allDay: true },
+                { title: 'Obsazeno', start: '2025-01-30', end: '2025-02-03', allDay: true },
+                { title: 'Thajsko', start: '2025-02-22', end: '2025-03-15', allDay: true, className: 'thajsko' },
+                ...budiciSvatky.map(svatek => ({ title: svatek.nazev, start: svatek.datum, allDay: true, className: 'budici-svatek' }))
+            ],
+            validRange: {
+                start: new Date(today.getFullYear(), today.getMonth() - 2, 1),
+                end: new Date(today.getFullYear() + 1, today.getMonth() + 1, 0)
+            }
         });
-    </script>
+
+        calendar.render();
+
+        document.getElementById('eventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var title = document.getElementById('title').value;
+            var start = document.getElementById('start').value;
+            var end = document.getElementById('end').value || start;
+
+            calendar.addEvent({
+                title: title,
+                start: start,
+                end: end,
+                allDay: true
+            });
+
+            this.reset();
+        });
+    });
+</script>
 </body>
