@@ -184,48 +184,49 @@
     ];
 
     document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var today = new Date();
+    var calendarEl = document.getElementById('calendar');
+    var today = new Date();
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            initialDate: today,
-            events: [
-                { title: 'Obsazeno', start: '2025-01-03', allDay: true },
-                { title: 'Obsazeno', start: '2025-01-04', allDay: true },
-                { title: 'Obsazeno', start: '2025-01-05', allDay: true },
-                { title: 'Obsazeno', start: '2025-01-30', end: '2025-02-03', allDay: true },
-                { title: 'Thajsko', start: '2025-02-22', end: '2025-03-15', allDay: true, className: 'thajsko' },
-                ...budiciSvatky.map(svatek => ({ title: svatek.nazev, start: svatek.datum, allDay: true, className: 'budici-svatek' }))
-            ],
-            validRange: {
-                start: new Date(today.getFullYear(), today.getMonth() - 2, 1),
-                end: new Date(today.getFullYear() + 1, today.getMonth() + 1, 0)
-            },
-            eventClick: function(info) {
-                if (confirm(`Opravdu chcete smazat událost "${info.event.title}"?`)) {
-                    info.event.remove();
-                }
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        initialDate: today,
+        events: [
+            { title: 'Obsazeno', start: '2025-01-03', allDay: true },
+            { title: 'Obsazeno', start: '2025-01-04', allDay: true },
+            { title: 'Obsazeno', start: '2025-01-05', allDay: true },
+            { title: 'Obsazeno', start: '2025-01-30', end: '2025-02-04', allDay: true }, // Konec nastaven na den po skutečném konci
+            { title: 'Thajsko', start: '2025-02-22', end: '2025-03-16', allDay: true, className: 'thajsko' }, // Konec nastaven na den po skutečném konci
+            ...budiciSvatky.map(svatek => ({ title: svatek.nazev, start: svatek.datum, allDay: true, className: 'budici-svatek' }))
+        ],
+        validRange: {
+            start: new Date(today.getFullYear(), today.getMonth() - 2, 1),
+            end: new Date(today.getFullYear() + 1, today.getMonth() + 1, 0)
+        },
+        eventClick: function(info) {
+            if (confirm(`Opravdu chcete smazat událost "${info.event.title}"?`)) {
+                info.event.remove();
             }
-        });
-
-        calendar.render();
-
-        document.getElementById('eventForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            var title = document.getElementById('title').value;
-            var start = document.getElementById('start').value;
-            var end = document.getElementById('end').value || start;
-
-            calendar.addEvent({
-                title: title,
-                start: start,
-                end: end,
-                allDay: true
-            });
-
-            this.reset();
-        });
+        }
     });
+
+    calendar.render();
+
+    document.getElementById('eventForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var title = document.getElementById('title').value;
+        var start = document.getElementById('start').value;
+        var end = new Date(document.getElementById('end').value);
+        end.setDate(end.getDate() + 1); // Přidání jednoho dne ke koncovému datu
+
+        calendar.addEvent({
+            title: title,
+            start: start,
+            end: end.toISOString().split('T')[0], // Převod na formát YYYY-MM-DD
+            allDay: true
+        });
+
+        this.reset();
+    });
+});
 </script>
 </body>
