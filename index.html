@@ -165,6 +165,7 @@
             <button type="submit">Přidat událost</button>
         </form>
     </div>
+</body>
 
    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
 <script>
@@ -187,6 +188,9 @@
         var calendarEl = document.getElementById('calendar');
         var today = new Date();
 
+        // Načtení událostí z localStorage
+        var savedEvents = JSON.parse(localStorage.getItem('events')) || [];
+
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             initialDate: today,
@@ -195,7 +199,8 @@
                 { title: 'Obsazeno', start: '2025-01-09', end: '2025-01-13', allDay: true, className: 'Marek+Terezka' },
                 { title: 'Obsazeno', start: '2025-01-30', end: '2025-02-04', allDay: true, className: 'Terezka+Marketa' },
                 { title: 'Thajsko', start: '2025-02-22', end: '2025-03-16', allDay: true, className: 'thajsko' },
-                ...budiciSvatky.map(svatek => ({ title: svatek.nazev, start: svatek.datum, allDay: true, className: 'budici-svatek' }))
+                ...budiciSvatky.map(svatek => ({ title: svatek.nazev, start: svatek.datum, allDay: true, className: 'budici-svatek' })),
+                ...savedEvents // Přidání uložených událostí
             ],
             validRange: {
                 start: new Date(today.getFullYear(), today.getMonth() - 2, 1),
@@ -212,12 +217,19 @@
             var end = new Date(document.getElementById('end').value);
             end.setDate(end.getDate() + 1); // Přidání jednoho dne
 
-            calendar.addEvent({
+            var newEvent = {
                 title: title,
                 start: start,
                 end: end.toISOString().split('T')[0], // Převod na formát YYYY-MM-DD
                 allDay: true
-            });
+            };
+
+            // Přidání nové události do kalendáře
+            calendar.addEvent(newEvent);
+
+            // Uložení nové události do localStorage
+            savedEvents.push(newEvent);
+            localStorage.setItem('events', JSON.stringify(savedEvents));
 
             this.reset();
         });
