@@ -191,10 +191,10 @@
             initialView: 'dayGridMonth',
             initialDate: today,
             events: [
-                { title: 'Jirka', start: '2025-01-03', end: '2025-01-05', allDay: true, className: 'Jirka' },
-                { title: 'Marek+Terezka', start: '2025-01-09', end: '2025-01-12', allDay: true, className: 'Marek+Terezka' },
-                { title: 'Terezka+Marketa', start: '2025-01-30', end: '2025-02-03', allDay: true, className: 'Terezka+Marketa' },
-                { title: 'Thajsko', start: '2025-02-22', end: '2025-03-15', allDay: true, className: 'thajsko' },
+                { title: 'Obsazeno', start: '2025-01-03', end: '2025-01-06', allDay: true, className: 'Jirka' },
+                { title: 'Obsazeno', start: '2025-01-09', end: '2025-01-13', allDay: true, className: 'Marek+Terezka' },
+                { title: 'Obsazeno', start: '2025-01-30', end: '2025-02-04', allDay: true, className: 'Terezka+Marketa' },
+                { title: 'Thajsko', start: '2025-02-22', end: '2025-03-16', allDay: true, className: 'thajsko' },
                 ...budiciSvatky.map(svatek => ({ title: svatek.nazev, start: svatek.datum, allDay: true, className: 'budici-svatek' }))
             ],
             validRange: {
@@ -209,12 +209,13 @@
             e.preventDefault();
             var title = document.getElementById('title').value;
             var start = document.getElementById('start').value;
-            var end = document.getElementById('end').value || start;
+            var end = new Date(document.getElementById('end').value);
+            end.setDate(end.getDate() + 1); // Přidání jednoho dne
 
             calendar.addEvent({
                 title: title,
                 start: start,
-                end: end,
+                end: end.toISOString().split('T')[0], // Převod na formát YYYY-MM-DD
                 allDay: true
             });
 
