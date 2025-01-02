@@ -205,6 +205,15 @@
             validRange: {
                 start: new Date(today.getFullYear(), today.getMonth() - 2, 1),
                 end: new Date(today.getFullYear() + 1, today.getMonth() + 1, 0)
+            },
+            eventClick: function(info) {
+                if (confirm(`Opravdu chcete smazat událost "${info.event.title}"?`)) {
+                    info.event.remove(); // Odstranění události z kalendáře
+
+                    // Aktualizace localStorage
+                    savedEvents = savedEvents.filter(event => event.title !== info.event.title || event.start !== info.event.startStr);
+                    localStorage.setItem('events', JSON.stringify(savedEvents));
+                }
             }
         });
 
